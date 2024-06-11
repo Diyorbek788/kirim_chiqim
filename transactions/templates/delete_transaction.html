@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kirim/Chiqimni o'chirish</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body class="bg-gray-100 min-h-screen flex items-center justify-center">
+    <div class="bg-white shadow-lg rounded-lg w-96 p-8">
+        <h1 class="text-3xl font-semibold text-center mb-4">Kirim/Chiqimni o'chirish</h1>
+        <p class="text-center mb-4">Siz haqiqatan ham ushbu kirim/chiqimni o'chirmoqchimisiz?</p>
+        <div class="flex justify-between">
+            <form method="post">
+                {% csrf_token %}
+                <button type="submit" class="py-2 px-4 bg-red-500 text-white rounded-lg">Ha, o'chirish</button>
+            </form>
+            <a href="{% url 'dashboard' %}" class="py-2 px-4 bg-gray-500 text-white rounded-lg">Yo'q, ortga</a>
+        </div>
+    </div>
+</body>
+</html>

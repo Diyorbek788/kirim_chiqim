@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body class="bg-gray-100 min-h-screen">
+    <div class="container mx-auto p-8">
+        <h1 class="text-3xl font-semibold text-center mb-8">Dashboard</h1>
+        <div class="text-right mb-4">
+            <!-- Kirim/Chiqim qo'shish tugmalari -->
+             <a href="{% url 'add_income_transaction' %}" class="bg-green-500 text-white py-2 px-4 rounded hover:bg-green-700">Kirim Qo'shish</a>
+             <a href="{% url 'add_expense_transaction' %}" class="bg-red-500 text-white py-2 px-4 rounded hover:bg-red-700">Chiqim Qo'shish</a>
+
+
+
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <!-- Kirimlar bloki -->
+            <div class="bg-green-100 p-4 rounded-lg shadow-lg">
+                <h2 class="text-2xl font-semibold text-green-800 mb-4">Kirimlar</h2>
+                {% if incomes %}
+                    <ul>
+                        {% for income in incomes %}
+                            <li class="mb-2 flex justify-between items-center">
+                                <div>
+                                    <span class="font-semibold">{{ income.description }}</span>: 
+                                    <span class="text-green-800">{{ income.amount }}</span> so'm
+                                    <span class="text-gray-600 text-sm">({{ income.date }})</span>
+                                </div>
+                                <div class="flex space-x-2">
+                                    <a href="{% url 'edit_transaction' income.id %}" class="text-blue-500 hover:text-blue-700">
+                                        <i class="fas fa-edit"></i>
+                                    </a>
+                                    <form method="post" action="{% url 'delete_transaction' income.id %}">
+                                        {% csrf_token %}
+                                        <button type="submit" class="text-red-500 hover:text-red-700">
+                                            <i class="fas fa-trash-alt"></i>
+                                        </button>
+                                    </form>
+                                </div>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                {% else %}
+                    <p class="text-gray-600">Hech qanday kirim mavjud emas.</p>
+                {% endif %}
+            </div>
+
+            <!-- Chiqimlar bloki -->
+            <div class="bg-red-100 p-4 rounded-lg shadow-lg">
+                <h2 class="text-2xl font-semibold text-red-800 mb-4">Chiqimlar</h2>
+                {% if expenses %}
+                    <ul>
+                        {% for expense in expenses %}
+                            <li class="mb-2 flex justify-between items-center">
+                                <div>
+                                    <span class="font-semibold">{{ expense.description }}</span>: 
+                                    <span class="text-red-800">{{ expense.amount }}</span> so'm
+                                    <span class="text-gray-600 text-sm">({{ expense.date }})</span>
+                                </div>
+                                <div class="flex space-x-2">
+                                    <a href="{% url 'edit_transaction' expense.id %}" class="text-blue-500 hover:text-blue-700">
+                                        <i class="fas fa-edit"></i>
+                                    </a>
+                                    <form method="post" action="{% url 'delete_transaction' expense.id %}">
+                                        {% csrf_token %}
+                                        <button type="submit" class="text-red-500 hover:text-red-700">
+                                            <i class="fas fa-trash-alt"></i>
+                                        </button>
+                                    </form>
+                                </div>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                {% else %}
+                    <p class="text-gray-600">Hech qanday chiqim mavjud emas.</p>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+    <!-- Font Awesome ikonkalarini chaqirish -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/js/all.min.js"></script>
+</body>
+</html>

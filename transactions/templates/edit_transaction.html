@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kirim/Chiqimni tahrirlash</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body class="bg-gray-100 min-h-screen flex items-center justify-center">
+    <div class="bg-white shadow-lg rounded-lg w-96 p-8">
+        <h1 class="text-3xl font-semibold text-center mb-4">Kirim/Chiqimni tahrirlash</h1>
+        <form class="space-y-4" method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit" class="block w-full py-2 rounded-lg bg-green-500 text-white font-semibold text-lg hover:bg-green-700 transition duration-300 ease-in-out">Yangilash</button>
+        </form>
+        <div class="text-center mt-4">
+            <a href="{% url 'dashboard' %}" class="text-blue-500 hover:underline">Ortga</a>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tizimga kirish</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+</head>
+<body class="bg-gradient-to-r from-blue-400 to-purple-500 min-h-screen flex items-center justify-center">
+    <div class="bg-white shadow-lg rounded-lg w-96 p-8">
+        <h1 class="text-3xl font-semibold text-center mb-4">Tizimga kirish</h1>
+        <form class="space-y-4" method="post">
+            {% csrf_token %}
+            {% if error %}
+                <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative" role="alert">
+                    <span class="block sm:inline">{{ error }}</span>
+                </div>
+            {% endif %}
+            <div class="flex flex-col space-y-1">
+                <label for="username" class="text-sm font-semibold">Username:</label>
+                <input type="text" id="username" name="username" class="py-2 px-3 border rounded-lg" required>
+            </div>
+            <div class="flex flex-col space-y-1">
+                <label for="password" class="text-sm font-semibold">Password:</label>
+                <input type="password" id="password" name="password" class="py-2 px-3 border rounded-lg" required>
+            </div>
+            <button type="submit" class="block w-full py-2 rounded-lg bg-gradient-to-r from-blue-500 to-purple-500 text-white font-semibold text-lg hover:bg-blue-700 transition duration-300 ease-in-out">Kirish</button>
+        </form>
+        <div class="text-center mt-4">
+            <a href="{% url 'register' %}" class="text-blue-500 hover:underline">Ro'yxatdan o'tish</a>
+        </div>
+    </div>
+</body>
+</html>
