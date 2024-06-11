@@ -61,26 +61,18 @@ def logout_view(request):
 
 @login_required
 def dashboard(request):
-    """
-    Display the user's dashboard with their income and expense transactions.
-
-    Args:
-        request (HttpRequest): The request object.
-
-    Returns:
-        HttpResponse: The response object with the dashboard template.
-    """
     incomes = Transaction.objects.filter(user=request.user, transaction_type='income')
-    expenses = Transaction.objects.filter(user=request.user, transaction_type='expense')
+    expenses = Transaction.objects.filter(user=request.user, transaction_type='expense')  # Chiqimlar ro'yxati
     return render(request, 'dashboard.html', {'incomes': incomes, 'expenses': expenses})
 
 @login_required
-def add_transaction(request):
+def add_transaction(request, type):
     """
     Handle the process of adding a new transaction.
 
     Args:
         request (HttpRequest): The request object.
+        type (str): The type of transaction, either 'income' or 'expense'.
 
     Returns:
         HttpResponse: The response object with the add transaction form or a redirect to the dashboard on successful submission.
@@ -89,14 +81,14 @@ def add_transaction(request):
         form = TransactionForm(request.POST)
         if form.is_valid():
             transaction = form.save(commit=False)
-            if request.user.is_authenticated:
-                transaction.user = request.user
-            transaction.transaction_type = request.path_info.split('/')[2]  # Extracts the type from the URL
+            transaction.user = request.user
+            transaction.transaction_type = type
             transaction.save()
             return redirect('dashboard')
     else:
         form = TransactionForm()
     return render(request, 'add_transaction.html', {'form': form})
+
 
 @login_required
 def edit_transaction(request, id):

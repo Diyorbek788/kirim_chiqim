@@ -7,9 +7,8 @@ urlpatterns = [
     path('login/', login_view, name='login'),
     path('logout/', logout_view, name='logout'),
     path('dashboard/', dashboard, name='dashboard'),
-    path('add_transaction/income/', views.add_transaction, name='add_income_transaction'),
-    path('add_transaction/expense/', views.add_transaction, name='add_expense_transaction'),
-
+    path('add_transaction/income/', views.add_transaction, {'type': 'income'}, name='add_income_transaction'),
+    path('add_transaction/expense/', views.add_transaction, {'type': 'expense'}, name='add_expense_transaction'),
     path('edit/<int:id>/', edit_transaction, name='edit_transaction'),
     path('delete/<int:id>/', delete_transaction, name='delete_transaction'),
 ]
